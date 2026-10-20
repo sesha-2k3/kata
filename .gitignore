@@ -1,0 +1,27 @@
+# compiled binaries
+problems/*
+!problems/*.*
+*.out
+*.o
+*.exe
+*.pdb
+*.dSYM/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Rust
+target/
+Cargo.lock
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
