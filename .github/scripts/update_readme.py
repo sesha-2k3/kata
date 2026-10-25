@@ -12,7 +12,11 @@ README = ROOT / "README.md"
 
 WEEKLY_GOAL = 15
 START, END = "<!-- PROGRESS:START -->", "<!-- PROGRESS:END -->"
-FILE_RE = re.compile(r"^problem0*(\d+)\.([A-Za-z0-9]+)$")
+
+PLATFORMS = {
+    "leetcode": ("LeetCode", re.compile(r"^problem0*(\d+)\.([A-Za-z0-9]+)$")),
+    "codeforces": ("Codeforces", re.compile(r"^problem0*(\d+[A-Za-z]\d?)\.([A-Za-z0-9]+)$")),
+}
 
 LANGUAGES = {
     "py": "Python", "rs": "Rust", "cpp": "C++", "cc": "C++", "c": "C",
@@ -58,7 +62,7 @@ def commit_dates() -> dict[str, dt.date]:
         if line.startswith("@"):
             current = dt.date.fromisoformat(line[1:])
         elif line.strip() and current:
-            dates[Path(line).name] = current
+            dates[line.strip()] = current
     return dates
 
 
@@ -71,22 +75,32 @@ def bar(done: int, total: int, width: int = 15) -> str:
     return "█" * filled + "░" * (width - filled)
 
 
+def problem_link(platform: str, pid: str) -> str:
+    if platform == "codeforces":
+        contest, index = re.match(r"(\d+)(.+)", pid).groups()
+        return f"[{pid}](https://codeforces.com/problemset/problem/{contest}/{index})"
+    return pid
+
+
 def build() -> str:
     today = dt.date.today()
     dates = commit_dates()
 
     solved = {}
-    langs = defaultdict(set)
+    files = defaultdict(set)
     lang_count = Counter()
-    for f in sorted(PROBLEMS_DIR.glob("problem*")):
-        m = FILE_RE.match(f.name)
-        if not m:
-            continue
-        num, ext = int(m.group(1)), m.group(2).lower()
-        d = dates.get(f.name, today)
-        solved[num] = min(d, solved.get(num, d))
-        langs[num].add((ext, f.name))
-        lang_count[LANGUAGES.get(ext, ext)] += 1
+    for platform, (_, pattern) in PLATFORMS.items():
+        for f in sorted((PROBLEMS_DIR / platform).glob("problem*")):
+            m = pattern.match(f.name)
+            if not m:
+                continue
+            pid, ext = m.group(1).upper(), m.group(2).lower()
+            path = f.relative_to(ROOT).as_posix()
+            d = dates.get(path, today)
+            key = (platform, pid)
+            solved[key] = min(d, solved.get(key, d))
+            files[key].add((LANGUAGES.get(ext, ext), path))
+            lang_count[LANGUAGES.get(ext, ext)] += 1
 
     if not solved:
         return "_No problems solved yet._"
@@ -105,12 +119,19 @@ def build() -> str:
         elif w != this_week:
             break
 
+    platform_count = Counter(p for p, _ in solved)
     done_now = per_week[this_week]
     lines = [
         f"**{len(solved)}** problems solved · **{sum(lang_count.values())}** solutions · "
         f"**{streak}**-week goal streak",
         "",
         f"**This week:** `{bar(done_now, WEEKLY_GOAL)}` {done_now}/{WEEKLY_GOAL}",
+        "",
+        "### Platforms",
+        "",
+        "| Platform | Solved |",
+        "|---|---:|",
+        *[f"| {name} | {platform_count[key]} |" for key, (name, _) in PLATFORMS.items()],
         "",
         "### Languages",
         "",
@@ -128,25 +149,27 @@ def build() -> str:
         status = "✅" if n >= WEEKLY_GOAL else ("⏳" if w == this_week else "❌")
         lines.append(f"| {w:%b %d, %Y} | {n} | {status} |")
 
-    lines += ["", "### Roadmap", "", "| Pattern | Progress | Problems |", "|---|:---:|---|"]
+    leetcode = {pid for p, pid in solved if p == "leetcode"}
+    lines += ["", "### LeetCode roadmap", "", "| Pattern | Progress | Problems |", "|---|:---:|---|"]
     for name, nums in ROADMAP:
-        done = sum(n in solved for n in nums)
-        cells = ", ".join(f"**{n}** ✓" if n in solved else str(n) for n in nums)
+        done = sum(str(n) in leetcode for n in nums)
+        cells = ", ".join(f"**{n}** ✓" if str(n) in leetcode else str(n) for n in nums)
         mark = " ✅" if done == len(nums) else ""
         lines.append(f"| {name} | {done}/{len(nums)}{mark} | {cells} |")
 
-    lines += ["", "### Solved", "", "| # | Solutions | Date |", "|---:|---|---|"]
-    for num in sorted(solved, key=lambda n: (solved[n], n), reverse=True):
-        links = " · ".join(
-            f"[{LANGUAGES.get(ext, ext)}](problems/{name})" for ext, name in sorted(langs[num])
+    lines += ["", "### Solved", "", "| Platform | Problem | Solutions | Date |", "|---|---|---|---|"]
+    for key in sorted(solved, key=lambda k: (solved[k], k), reverse=True):
+        platform, pid = key
+        links = " · ".join(f"[{lang}]({path})" for lang, path in sorted(files[key]))
+        lines.append(
+            f"| {PLATFORMS[platform][0]} | {problem_link(platform, pid)} | {links} | {solved[key]:%b %d} |"
         )
-        lines.append(f"| {num} | {links} | {solved[num]:%b %d} |")
 
     return "\n".join(lines)
 
 
 def main() -> None:
-    text = README.read_text(encoding="utf-8") if README.exists() else "# LeetCode\n"
+    text = README.read_text(encoding="utf-8") if README.exists() else "# Kata\n"
     block = f"{START}\n{build()}\n{END}"
     if START in text and END in text:
         before, rest = text.split(START, 1)
