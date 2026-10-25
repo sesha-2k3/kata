@@ -1,6 +1,7 @@
-# compiled binaries
-problems/*
-!problems/*.*
+# Compiled binaries in problems/ (C++/Rust builds have no extension)
+problems/**/*
+!problems/**/
+!problems/**/*.*
 *.out
 *.o
 *.exe
