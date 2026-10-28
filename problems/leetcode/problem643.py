@@ -1,12 +1,12 @@
 """
 Explanation:
-- keep a variable for current sum and pointers left and right.
+- keep a variable for current sum, max sum and pointers left and right.
 - set the max sum to -infinity (since it is integers).
 - iterate through the array and update the current sum.
 - when window is larger than the given 'k', move the left and subtract the 
   leftmost element from the current sum.
 - if the window is equal to k, then store the max_sum at that point, and continue.
-- return the average of max_sum.
+- return the average of max sum.
 """
 # solution 1:
 class Solution:
