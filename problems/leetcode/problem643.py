@@ -21,3 +21,17 @@ class Solution:
             if right - left + 1 == k:
                 max_sum = max(max_sum, current_sum)
         return max_sum / k
+
+# solution 2:
+class Solution1:
+    def findMaxAverage(self, nums: list[int], k: int) -> float:
+        window_sum = 0
+        for i in range(k):
+            window_sum += nums[i]
+        max_sum = window_sum
+        for right in range(k, len(nums)):
+            left = right - k
+            window_sum -= nums[left]
+            window_sum += nums[right]
+            max_sum = max(max_sum, window_sum)
+        return max_sum / k
