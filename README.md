@@ -9,28 +9,28 @@ A structured record of algorithmic problem solving, organized by pattern.
 ## Progress
 
 <!-- PROGRESS:START -->
-**3** problems solved · **3** solutions · **0**-week goal streak
+**4** problems solved · **4** solutions · **0**-week goal streak
 
-**This week:** `███░░░░░░░░░░░░` 3/15
+**This week:** `████░░░░░░░░░░░` 4/15
 
 ### Platforms
 
 | Platform | Solved |
 |---|---:|
-| LeetCode | 3 |
+| LeetCode | 4 |
 | Codeforces | 0 |
 
 ### Languages
 
 | Language | Solutions |
 |---|---:|
-| Python | 3 |
+| Python | 4 |
 
 ### Weekly log
 
 | Week of | Solved | Goal |
 |---|---:|:---:|
-| Oct 26, 2026 | 3 | ⏳ |
+| Oct 26, 2026 | 4 | ⏳ |
 
 ### LeetCode roadmap
 
@@ -61,6 +61,7 @@ A structured record of algorithmic problem solving, organized by pattern.
 
 | Platform | Problem | Solutions | Date |
 |---|---|---|---|
+| LeetCode | 26 | [Python](problems/leetcode/problem26.py) | Oct 28 |
 | LeetCode | 643 | [Python](problems/leetcode/problem643.py) | Oct 27 |
 | LeetCode | 209 | [Python](problems/leetcode/problem209.py) | Oct 27 |
 | LeetCode | 3 | [Python](problems/leetcode/problem3.py) | Oct 26 |
