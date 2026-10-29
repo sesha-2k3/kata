@@ -9,34 +9,34 @@ A structured record of algorithmic problem solving, organized by pattern.
 ## Progress
 
 <!-- PROGRESS:START -->
-**4** problems solved · **4** solutions · **0**-week goal streak
+**5** problems solved · **5** solutions · **0**-week goal streak
 
-**This week:** `████░░░░░░░░░░░` 4/15
+**This week:** `█████░░░░░░░░░░` 5/15
 
 ### Platforms
 
 | Platform | Solved |
 |---|---:|
-| LeetCode | 4 |
+| LeetCode | 5 |
 | Codeforces | 0 |
 
 ### Languages
 
 | Language | Solutions |
 |---|---:|
-| Python | 4 |
+| Python | 5 |
 
 ### Weekly log
 
 | Week of | Solved | Goal |
 |---|---:|:---:|
-| Oct 26, 2026 | 4 | ⏳ |
+| Oct 26, 2026 | 5 | ⏳ |
 
 ### LeetCode roadmap
 
 | Pattern | Progress | Problems |
 |---|:---:|---|
-| Sliding Window | 2/6 | **3** ✓, 76, **209** ✓, 424, 567, 904 |
+| Sliding Window | 3/6 | **3** ✓, 76, **209** ✓, **424** ✓, 567, 904 |
 | Two Pointers | 0/6 | 11, 15, 16, 18, 42, 167 |
 | Fast/Slow Pointers | 0/6 | 141, 142, 19, 876, 160, 234 |
 | Binary Search on Sorted Data | 0/6 | 33, 34, 35, 153, 162, 704 |
@@ -61,6 +61,7 @@ A structured record of algorithmic problem solving, organized by pattern.
 
 | Platform | Problem | Solutions | Date |
 |---|---|---|---|
+| LeetCode | 424 | [Python](problems/leetcode/problem424.py) | Oct 29 |
 | LeetCode | 26 | [Python](problems/leetcode/problem26.py) | Oct 28 |
 | LeetCode | 643 | [Python](problems/leetcode/problem643.py) | Oct 27 |
 | LeetCode | 209 | [Python](problems/leetcode/problem209.py) | Oct 27 |
