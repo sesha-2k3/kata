@@ -11,7 +11,7 @@ A structured record of algorithmic problem solving, organized by pattern.
 <!-- PROGRESS:START -->
 **5** problems solved · **5** solutions · **0**-week goal streak
 
-**This week:** `█████░░░░░░░░░░` 5/15
+**This week:** `░░░░░░░░░░░░░░░` 0/15
 
 ### Platforms
 
@@ -30,7 +30,8 @@ A structured record of algorithmic problem solving, organized by pattern.
 
 | Week of | Solved | Goal |
 |---|---:|:---:|
-| Oct 26, 2026 | 5 | ⏳ |
+| Nov 02, 2026 | 0 | ⏳ |
+| Oct 26, 2026 | 5 | ❌ |
 
 ### LeetCode roadmap
 
