@@ -30,7 +30,8 @@ A structured record of algorithmic problem solving, organized by pattern.
 
 | Week of | Solved | Goal |
 |---|---:|:---:|
-| Nov 09, 2026 | 0 | ⏳ |
+| Nov 16, 2026 | 0 | ⏳ |
+| Nov 09, 2026 | 0 | ❌ |
 | Nov 02, 2026 | 0 | ❌ |
 | Oct 26, 2026 | 5 | ❌ |
 
